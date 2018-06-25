@@ -1,8 +1,9 @@
+package benchmark
+
 /**
   * Created by PerkinsZhu on 2018/6/22 19:34
   **/
 
-import org.scalameter.Measurer.MemoryFootprint
 import org.scalameter.api
 import org.scalameter.api._
 
