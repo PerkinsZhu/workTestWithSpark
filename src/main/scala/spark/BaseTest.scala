@@ -18,9 +18,10 @@ class BaseTest {
     .builder.master("local")
     .appName("WordCount")
     .getOrCreate()
+  val readStream = spark.readStream
   val sc = spark.sparkContext
-  val rddData = sc.textFile("G:\\test\\test.txt")
-
+  val rddData = sc.textFile("G:\\test\\application-2018-06-15")
+  sc.setLogLevel("WARN")
 
   @After
   def stopSparkContext(): Unit = {
@@ -37,18 +38,13 @@ class BaseTest {
 
   @Test
   def testWordCount2(): Unit = {
-    val splitData = rddData.flatMap(_.split("\\s+")).map(word => (word, 1))
-    splitData.foreach(data => {
-      println("----------------------")
-      println(data._1.mkString("") + "--->" + data._2)
-    })
-    val result = splitData.reduceByKey((x, y) => {
-      println(s"$x ---> $y")
-      x + y
-    })
-    result.foreach(data => {
-      println(data)
-    })
+    println(rddData.partitions.size)
+    Thread.sleep(10000)
+    val result = rddData.flatMap(_.split("\\s+")).map(word => (word, 1)).reduceByKey(_ + _).count()
+    println(result)
+    //    result.foreach(data => {
+    //      println(data)
+    //    })
 
   }
 
@@ -64,9 +60,34 @@ class BaseTest {
   }
 
   @Test
-  def testBroadCast(): Unit ={
-    val temp = sc.broadcast(Array(1,2,3,4,5))
+  def testBroadCast(): Unit = {
+    val temp = sc.broadcast(Array(1, 2, 3, 4, 5))
     println(temp)
+  }
+
+
+
+  import spark.implicits._
+
+  @Test
+  def testStream(): Unit = {
+    val lines = readStream.format("socket")
+      .option("host", "192.168.10.192")
+      .option("port", 9999)
+      .load()
+    // Split the lines into words
+    val words = lines.as[String].flatMap(_.split(" "))
+
+    // Generate running word count
+    val wordCounts = words.groupBy("value").count()
+    // Start running the query that prints the running counts to the console
+    val query = wordCounts.writeStream
+      .outputMode("complete")
+      .format("console")
+      .start()
+
+    query.awaitTermination()
+
   }
 
 }
