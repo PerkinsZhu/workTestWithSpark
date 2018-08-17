@@ -28,3 +28,14 @@ fork in Test := true
 
 // https://mvnrepository.com/artifact/log4j/log4j
 libraryDependencies += "log4j" % "log4j" % "1.2.17"
+
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
+libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "3.1.1"
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client
+libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "3.1.1"
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs
+libraryDependencies += "org.apache.hadoop" % "hadoop-hdfs" % "3.1.1"
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core
+libraryDependencies += "org.apache.hadoop" % "hadoop-mapreduce-client-core" % "3.1.1"
+
+
