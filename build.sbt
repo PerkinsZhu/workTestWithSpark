@@ -4,7 +4,7 @@ version := "0.1"
 
 scalaVersion := "2.11.11"
 // https://mvnrepository.com/artifact/org.apache.spark/spark-core
-libraryDependencies += "org.apache.spark" %% "spark-core" % "2.2.0"
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.3.1"
 // https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka-0-10
 libraryDependencies += "org.apache.spark" %% "spark-streaming-kafka-0-10" % "2.0.1"
 
@@ -16,7 +16,7 @@ libraryDependencies += "junit" % "junit" % "4.12"
 //mongodb 官方依赖
 libraryDependencies ++= Seq(
   "org.mongodb.spark" %% "mongo-spark-connector" % "2.2.2",
-  "org.apache.spark" %% "spark-sql" % "2.2.0"
+  "org.apache.spark" %% "spark-sql" % "2.3.1"
 )
 
 //为基准测试插件
@@ -38,8 +38,15 @@ libraryDependencies += "org.apache.hadoop" % "hadoop-hdfs" % "3.1.1"
 // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core
 libraryDependencies += "org.apache.hadoop" % "hadoop-mapreduce-client-core" % "3.1.1"
 
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.9.6"
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.6"
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+libraryDependencies += "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.6"
 
-assemblyMergeStrategy in run := {
+
+/*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
   case "application.conf"                            => MergeStrategy.concat
@@ -47,4 +54,4 @@ assemblyMergeStrategy in run := {
   case x =>
     val oldStrategy = (assemblyMergeStrategy in run).value
     oldStrategy(x)
-}
+}*/
