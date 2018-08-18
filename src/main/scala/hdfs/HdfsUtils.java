@@ -24,7 +24,7 @@ import org.apache.zookeeper.common.IOUtils;
  */
 public class HdfsUtils {
 
-    public static String uri = "hdfs://192.168.1.118:9000";
+    private static String uri = "hdfs://192.168.10.156:9000";
 
     /**
      * make a new dir in the hdfs

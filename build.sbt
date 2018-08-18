@@ -39,3 +39,12 @@ libraryDependencies += "org.apache.hadoop" % "hadoop-hdfs" % "3.1.1"
 libraryDependencies += "org.apache.hadoop" % "hadoop-mapreduce-client-core" % "3.1.1"
 
 
+assemblyMergeStrategy in run := {
+  case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+  case "application.conf"                            => MergeStrategy.concat
+  case "unwanted.txt"                                => MergeStrategy.discard
+  case x =>
+    val oldStrategy = (assemblyMergeStrategy in run).value
+    oldStrategy(x)
+}
