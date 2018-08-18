@@ -9,12 +9,12 @@ import org.apache.spark.SparkConf
 
 object WordCount {
   private val master = "spark://192.168.10.156:7077"
-  private val remote_file = "hdfs://192.168.10.156:9000/test/input/log1.txt"
+  private val remote_file = "hdfs://192.168.10.156:9000/test/input/test.txt"
   def main(args: Array[String]) {
     val conf = new SparkConf()
       .setAppName("WordCount")
       .setMaster(master)
-      .set("spark.executor.memory", "512m")
+      .set("spark.executor.memory", "900m")
       .setJars(List("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar\\workTestWithSpark.jar"))
 
     val sc = new SparkContext(conf)
