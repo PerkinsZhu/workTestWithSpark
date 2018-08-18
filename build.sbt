@@ -45,6 +45,9 @@ libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.
 // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.6"
 
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-scala
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.6"
+
 
 /*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first

@@ -22,7 +22,7 @@ class BaseTest {
     .getOrCreate()
   val readStream = spark.readStream
   val sc = spark.sparkContext
-  val rddData = sc.textFile("G:\\test\\application-2018-06-15")
+  val rddData = sc.textFile("G:\\test\\log1.txt")
   sc.setLogLevel("WARN")
 
   @After
