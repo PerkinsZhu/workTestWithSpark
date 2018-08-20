@@ -1,0 +1,13 @@
+打包jar，可以按照copy to  outputDirect的方式通过idea 打包
+
+然后把整个目录scp到linux上(每次修改之后只需要更新修改的jar即可)
+
+在linux上的jar目录下，创建start.sh，添加有一下内容:
+    spark-submit --master spark://master:7077 --class sparktest.WordCount --name wordCountTest --executor-memory 900m ./workTestWithSpark.jar
+
+注意这里的内存设置，要和代码中的内存一致
+        .set("spark.executor.memory", "900m")
+
+
+
+对start.sh赋执行权限

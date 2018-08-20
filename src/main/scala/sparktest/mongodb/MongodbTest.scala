@@ -1,4 +1,4 @@
-package spark.mongodb
+package sparktest.mongodb
 
 import com.mongodb.spark.MongoSpark
 import org.apache.spark.sql.SparkSession

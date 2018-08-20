@@ -1,4 +1,4 @@
-package spark
+package sparktest
 
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.{Row, SaveMode, SparkSession}
