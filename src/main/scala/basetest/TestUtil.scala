@@ -1,5 +1,7 @@
 package basetest
 
+import java.util.regex.Pattern
+
 import org.junit.Test
 
 /**
@@ -29,4 +31,11 @@ class TestUtil {
     println(Some("a") ne Some("a"))
   }
 
+  @Test
+  def testMatch(): Unit ={
+    val regex ="[^\\w\\s]+"
+    val pattern = Pattern.compile(".*(\\pP|\\(|\\)).*")
+    println(pattern.matcher("中国的s;wesdf").matches())
+    println("asdf】[89(*0]jkwer".matches(".*(\\pP|\\(|\\)|\\{|\\}|\\[|\\]|【|】).*"))
+  }
 }
