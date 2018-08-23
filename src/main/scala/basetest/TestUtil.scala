@@ -1,5 +1,6 @@
 package basetest
 
+import java.io.File
 import java.util.regex.Pattern
 
 import org.junit.Test
@@ -32,10 +33,15 @@ class TestUtil {
   }
 
   @Test
-  def testMatch(): Unit ={
-    val regex ="[^\\w\\s]+"
+  def testMatch(): Unit = {
+    val regex = "[^\\w\\s]+"
     val pattern = Pattern.compile(".*(\\pP|\\(|\\)).*")
     println(pattern.matcher("中国的s;wesdf").matches())
     println("asdf】[89(*0]jkwer".matches(".*(\\pP|\\(|\\)|\\{|\\}|\\[|\\]|【|】).*"))
+  }
+
+  @Test
+  def testListFiles(): Unit = {
+    new File("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar").listFiles().map(_.getAbsolutePath).foreach(println _)
   }
 }

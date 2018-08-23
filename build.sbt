@@ -51,6 +51,17 @@ libraryDependencies += "com.fasterxml.jackson.core" % "jackson-annotations" % "2
 libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.6"
 
 
+// https://mvnrepository.com/artifact/org.apache.hbase/hbase
+libraryDependencies += "org.apache.hbase" % "hbase" % "2.1.0"
+// https://mvnrepository.com/artifact/org.apache.hbase/hbase-common
+libraryDependencies += "org.apache.hbase" % "hbase-common" % "2.1.0"
+// https://mvnrepository.com/artifact/org.apache.hbase/hbase-client
+libraryDependencies += "org.apache.hbase" % "hbase-client" % "2.1.0"
+// https://mvnrepository.com/artifact/org.apache.hbase/hbase-server
+libraryDependencies += "org.apache.hbase" % "hbase-server" % "2.1.0"
+
+
+
 /*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
