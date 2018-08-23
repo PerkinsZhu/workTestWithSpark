@@ -44,4 +44,10 @@ class TestUtil {
   def testListFiles(): Unit = {
     new File("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar").listFiles().map(_.getAbsolutePath).foreach(println _)
   }
+
+  @Test
+  def testSplit(): Unit ={
+    "123 123   123klkl\twerw".split("\\s+|\\t").foreach(println(_))
+  }
+
 }

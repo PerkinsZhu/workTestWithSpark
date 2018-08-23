@@ -17,7 +17,7 @@ libraryDependencies += "junit" % "junit" % "4.12"
 
 //mongodb 官方依赖
 libraryDependencies ++= Seq(
-  "org.mongodb.spark" %% "mongo-spark-connector" % "2.2.2",
+  "org.mongodb.spark" %% "mongo-spark-connector" % "2.3.0",
   "org.apache.spark" %% "spark-sql" % "2.3.1"
 )
 
@@ -59,6 +59,14 @@ libraryDependencies += "org.apache.hbase" % "hbase-common" % "2.1.0"
 libraryDependencies += "org.apache.hbase" % "hbase-client" % "2.1.0"
 // https://mvnrepository.com/artifact/org.apache.hbase/hbase-server
 libraryDependencies += "org.apache.hbase" % "hbase-server" % "2.1.0"
+
+// https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+libraryDependencies += "org.apache.kafka" % "kafka-clients" % "2.0.0"
+
+
+
+// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.12"
 
 
 

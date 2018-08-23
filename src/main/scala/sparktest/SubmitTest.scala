@@ -4,6 +4,7 @@ package sparktest
   * Created by PerkinsZhu on 2018/8/18 15:01
   **/
 
+import com.mongodb.spark.MongoSpark
 import org.apache.log4j.Logger
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{Dataset, SparkSession}
@@ -12,8 +13,11 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
 object SubmitTest {
   private val master = "spark://192.168.10.156:7077"
   private val remote_file = "hdfs://192.168.10.156:9000/test/input/test.txt"
+  val mongodbUri = "mongodb://192.168.10.192:27017/test.common-qa"
   val logger = Logger.getLogger(SubmitTest.getClass)
-  val sparkSession = SparkSession.builder().appName("sparkTest").getOrCreate()
+  val sparkSession = SparkSession.builder()
+    .config("spark.mongodb.input.uri", mongodbUri)
+    .appName("sparkTest").getOrCreate()
   val sparkContext = sparkSession.sparkContext;
 
   import sparkSession.implicits._
@@ -91,6 +95,14 @@ object SubmitTest {
     ssc.start()
     ssc.awaitTermination()
   }
+
+  def testMongod(): Unit = {
+    val rdd = MongoSpark.load(sparkContext)
+    println(rdd.count)
+    println(rdd.first.toJson)
+
+  }
+
 }
 
 /**

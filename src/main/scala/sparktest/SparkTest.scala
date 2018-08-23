@@ -6,6 +6,6 @@ package sparktest
 object SparkTest {
   def main(args: Array[String]): Unit = {
 //    LocalTest.testSpark()
-    SubmitTest.testSpark()
+//    SubmitTest.testMongod()
   }
 }
