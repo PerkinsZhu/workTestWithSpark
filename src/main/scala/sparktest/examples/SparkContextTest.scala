@@ -73,7 +73,8 @@ object SparkContextTest {
   }
 
   case class Person(name: String, age: Long)
-  case class Student(id:Int,name: String, age: Long)
+
+  case class Student(id: Int, name: String, age: Long)
 
   // 使用junit测试会失败，在main方法中调用该方法
   def testPerson(): Unit = {
@@ -164,15 +165,27 @@ object SparkContextTest {
     jdbcDF2.foreach(println(_))
 
     println("自定义格式写")
-    Seq(Student(1,"aaa", 11),Student(2,"bbb", 22), Student(3,"ccc", 33)).toDS().write.option("createTableColumnTypes", "id INT, name VARCHAR(11), age DECIMAL(2)").mode(SaveMode.Append)
+    Seq(Student(1, "aaa", 11), Student(2, "bbb", 22), Student(3, "ccc", 33)).toDS().write.option("createTableColumnTypes", "id INT, name VARCHAR(11), age DECIMAL(2)").mode(SaveMode.Append)
       .jdbc(dbUrl, "student02", connectionProperties)
 
   }
 
+  def testAccumulator(): Unit = {
+    val longAccumulator = sparkSession.sparkContext.longAccumulator
+    val broadcastData = sparkSession.sparkContext.broadcast(100)
+    sparkSession.sparkContext.parallelize(1 to 100).map(i => {
+      longAccumulator.add(1)
+      println("我是node节点：" + longAccumulator.value)
+      i * broadcastData.value
+    }).foreach(i => {
+      println(i + s"第${longAccumulator.value}任务结束")
+    })
+  }
   def main(args: Array[String]): Unit = {
     //    testPerson()
     //    testSchema()
-    testJDBC()
-  }
+    //    testJDBC()
+    //    testAccumulator()
+}
 
 }
