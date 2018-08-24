@@ -7,6 +7,6 @@ object SparkTest {
   def main(args: Array[String]): Unit = {
 //    LocalTest.testSpark()
 //    SubmitTest.testMongod()
-    LocalTest.testJoin()
+    LocalTest.testDataFrame()
   }
 }

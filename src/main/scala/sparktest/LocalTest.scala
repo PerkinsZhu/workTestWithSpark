@@ -5,6 +5,8 @@ import org.apache.log4j.Logger
 import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.bson.Document
+import sparktest.SubmitTest.Person
+import sparktest.examples.SparkContextTest.Student
 
 /**
   * Created by PerkinsZhu on 2018/8/22 10:07
@@ -67,8 +69,7 @@ object LocalTest {
   }
 
   def testJoin(): Unit = {
-    val sparkSession = SparkSession.builder().master("local").appName("testJoin").getOrCreate()
-    val sc = sparkSession.sparkContext
+    val (sparkSession, sc) = createSparkSession()
     import sparkSession.implicits._
 
     // RDD如何转换为DS DF
@@ -104,6 +105,42 @@ object LocalTest {
     rdd1.fullOuterJoin(rdd2).collect().foreach(println _)
 
     sparkSession.stop()
+  }
+
+  def createSparkSession(): (SparkSession, SparkContext) = {
+    val sparkSession = SparkSession.builder().master("local").appName("localTest").getOrCreate()
+    val sc = sparkSession.sparkContext
+    (sparkSession, sc)
+  }
+
+  def testDataFrame(): Unit = {
+    val (sparkSession, sc) = createSparkSession()
+    val df1 = sparkSession.createDataFrame(List(Person("jack", 23), Person("tom", 10), Person("tom", 101), Person("tom", 12), Person("tom", 13)))
+    val df3 = sparkSession.createDataFrame(List(Person("zhangsan", 23), Person("tom", 10)))
+    df1.show()
+    df1.printSchema()
+    val df2 = sparkSession.createDataFrame(Seq(Student(1, "aaa", 10), Student(2, "bbb", 20)))
+    df2.show()
+    df1.show(1)
+    df1.show(2)
+    df1.show(3)
+    df1.show(4)
+    println("====test slect====")
+    df1.select("name").show()
+    //查询不存在的列会报错
+    //df1.select("noLine").show()
+
+    df1.filter(_.getString(0) == "tom").show()
+    import sparkSession.implicits._
+    val ds1 = df1.as[Person]
+    ds1.filter($"name" === "tom").select("age").show()
+    ds1.groupBy("name").count().show()
+
+
+    //TODO 测试 join 连接查询
+    //df1.join(df3).show()
+
+
   }
 
 }
