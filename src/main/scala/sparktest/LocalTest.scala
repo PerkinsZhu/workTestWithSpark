@@ -4,7 +4,6 @@ import com.mongodb.spark.MongoSpark
 import org.apache.log4j.Logger
 import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.bson.Document
 import sparktest.SubmitTest.Person
 import sparktest.examples.SparkContextTest.Student
 
@@ -138,9 +137,14 @@ object LocalTest {
 
 
     //TODO 测试 join 连接查询
-    //df1.join(df3).show()
-
-
+    //    df1.join(df3).show()
   }
+
+  def testStreaming(): Unit = {
+    import org.apache.spark.streaming._
+    val (sparkSession, sc) = createSparkSession()
+    val sparkStream = new StreamingContext(sc,Seconds(1))
+  }
+
 
 }
