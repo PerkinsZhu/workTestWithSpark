@@ -68,7 +68,11 @@ libraryDependencies += "org.apache.kafka" % "kafka-clients" % "2.0.0"
 // https://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.12"
 
+// https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper
+libraryDependencies += "org.apache.zookeeper" % "zookeeper" % "3.4.13"
 
+// https://mvnrepository.com/artifact/com.alibaba/dubbo
+libraryDependencies += "com.alibaba" % "dubbo" % "2.6.2"
 
 /*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
