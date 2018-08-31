@@ -52,13 +52,13 @@ libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" 
 
 
 // https://mvnrepository.com/artifact/org.apache.hbase/hbase
-libraryDependencies += "org.apache.hbase" % "hbase" % "2.1.0"
+libraryDependencies += "org.apache.hbase" % "hbase" % "1.4.5"
 // https://mvnrepository.com/artifact/org.apache.hbase/hbase-common
-libraryDependencies += "org.apache.hbase" % "hbase-common" % "2.1.0"
+libraryDependencies += "org.apache.hbase" % "hbase-common" % "1.4.5"
 // https://mvnrepository.com/artifact/org.apache.hbase/hbase-client
-libraryDependencies += "org.apache.hbase" % "hbase-client" % "2.1.0"
+libraryDependencies += "org.apache.hbase" % "hbase-client" % "1.4.5"
 // https://mvnrepository.com/artifact/org.apache.hbase/hbase-server
-libraryDependencies += "org.apache.hbase" % "hbase-server" % "2.1.0"
+libraryDependencies += "org.apache.hbase" % "hbase-server" % "1.4.5"
 
 // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
 libraryDependencies += "org.apache.kafka" % "kafka-clients" % "2.0.0"

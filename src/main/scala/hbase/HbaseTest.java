@@ -14,7 +14,6 @@ import java.io.IOException;
 public class HbaseTest {
     public static void main(String[] args) throws IOException {
         Configuration conf = HBaseConfiguration.create();
-        conf.addResource("./hbase-site.xml");
         Connection connection = ConnectionFactory.createConnection(conf);
         Admin admin = connection.getAdmin();
         TableName[] names = admin.listTableNames();
