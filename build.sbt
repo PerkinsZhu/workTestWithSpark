@@ -74,6 +74,14 @@ libraryDependencies += "org.apache.zookeeper" % "zookeeper" % "3.4.13"
 // https://mvnrepository.com/artifact/com.alibaba/dubbo
 libraryDependencies += "com.alibaba" % "dubbo" % "2.6.2"
 
+// https://mvnrepository.com/artifact/org.apache.hive/hive-exec
+libraryDependencies += "org.apache.hive" % "hive-exec" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.hive/hive-metastore
+libraryDependencies += "org.apache.hive" % "hive-metastore" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc
+libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.0"
+
+
 /*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
