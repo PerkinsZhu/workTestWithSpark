@@ -96,6 +96,37 @@ public class ZookeeperUtils {
         Thread.sleep(10000000);
     }
 
+
+    @Test
+    public void testCreateDoubleNode() {
+        try {
+            Watcher watcher = event -> System.out.println("threadListener\t接收到监控事件\ttype:" + event.getType() + "\t path:" + event.getPath());
+            ZooKeeper zooKeeper = createZookeeper(watcher);
+            for (int i = 0; i < 5; i++) {
+                new Thread(() -> {
+                    try {
+                        String newPath = path + "/lock";
+                        String  result =  zooKeeper.create(newPath , path.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+                        if(newPath.equals(result)){
+                            System.out.println("节点创建成功");
+                        }else{
+                            System.out.println("节点创建畸形");
+                        }
+                    } catch (Exception e) {
+                        if(e instanceof  KeeperException.NodeExistsException){
+                            System.out.println("该节点已存在");
+                        }else{
+                            System.out.println("创建节点发生未知异常");
+                        }
+
+                    }
+                }).start();
+            }
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 /**
@@ -105,5 +136,14 @@ public class ZookeeperUtils {
  *
  * exists、getChildren  getData 可以设置watch
  * create、set 可以触发watch事件
+ *
+ *      分布式锁：
+ *          1、当有两个线程同时去持有锁的时候发生错误，该如何解决？
+ *              例如：A线程去查询Node(".../lock"),发现值为0(未持有)，然后修改Node("../lock")为1,此时，在修改之前，B线程也查询Node发现为0，这是B也去
+ *              修改Node，这样就会导致两个线程都去持有锁。
+ *            解决方法：不要根据Node("../lock")的Value值来判断是否被持有，而是根据是否存在该Node来判断该锁是否被持有。
+ *                  这样，当A和B去查询发现没有的时候，然后去创建Node,这是，肯定会有一个失败，如果失败，则等待去持有锁
+ *                  如果成功，则成功持有锁。这里利用的时候创建时存在Node会发生异常的特性。见测试案例:testCreateDoubleNode
+ *
  */
 
