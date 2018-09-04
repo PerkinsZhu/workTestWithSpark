@@ -80,6 +80,8 @@ libraryDependencies += "org.apache.hive" % "hive-exec" % "3.1.0"
 libraryDependencies += "org.apache.hive" % "hive-metastore" % "3.1.0"
 // https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc
 libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10
+libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % "2.3.1"
 
 
 /*assemblyMergeStrategy in run := {

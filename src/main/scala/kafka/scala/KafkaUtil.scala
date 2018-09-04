@@ -1,4 +1,4 @@
-package kafka.java
+package kafka.scala
 
 import java.time.Duration
 import java.util
@@ -6,9 +6,8 @@ import java.util.Properties
 
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer._
-import org.apache.kafka.common.TopicPartition
 import org.junit.Test
-
+import scala.collection.JavaConverters._
 /**
   * Created by PerkinsZhu on 2018/9/3 14:02
   **/
@@ -48,7 +47,6 @@ class KafkaUtil {
 
   @Test
   def testSubscribe(): Unit = {
-    import scala.collection.JavaConverters._
     val properties = getProperties()
     properties.setProperty("group.id","3")
     /**
@@ -60,7 +58,7 @@ class KafkaUtil {
       *   见:https://blog.csdn.net/joy6331/article/details/51180467
       */
     properties.setProperty("auto.offset.reset","earliest")
-    val topics = util.Arrays.asList("User")
+    val topics = util.Arrays.asList("spark-User")
     val consumer = new KafkaConsumer[String, String](properties)
     consumer.subscribe(topics)
 //    consumer.assign(util.Arrays.asList(new TopicPartition("User",0)))
