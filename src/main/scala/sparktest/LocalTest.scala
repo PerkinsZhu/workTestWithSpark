@@ -12,8 +12,8 @@ import sparktest.examples.SparkContextTest.Student
   **/
 object LocalTest {
 
-  private val master = "spark://192.168.10.156:7077"
-  private val remote_file = "hdfs://192.168.10.156:9000/test/input/test.txt"
+  private val master = "spark://192.168.10.163:7077"
+  private val remote_file = "hdfs://192.168.10.163:9000/test/input/test.txt"
   val logger = Logger.getLogger(LocalTest.getClass)
 
   def testSpark(): Unit = {

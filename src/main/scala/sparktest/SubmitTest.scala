@@ -11,12 +11,12 @@ import org.apache.spark.sql.{Dataset, SparkSession}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 object SubmitTest {
-  private val master = "spark://192.168.10.156:7077"
-  private val remote_file = "hdfs://192.168.10.156:9000/test/input/test.txt"
+  private val master = "spark://192.168.10.163:7077"
+  private val remote_file = "hdfs://192.168.10.163:9000/test/input/test.txt"
   val mongodbUri = "mongodb://192.168.10.192:27017/test.common-qa"
   val logger = Logger.getLogger(SubmitTest.getClass)
   val sparkSession = SparkSession.builder()
-    .config("spark.mongodb.input.uri", mongodbUri)
+//    .config("spark.mongodb.input.uri", mongodbUri)
     .appName("sparkTest").getOrCreate()
   val sparkContext = sparkSession.sparkContext;
 

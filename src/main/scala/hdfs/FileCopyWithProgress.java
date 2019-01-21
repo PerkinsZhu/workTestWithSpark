@@ -16,7 +16,7 @@ public class FileCopyWithProgress{
     public static void main(String[] args) throws IOException {
         System.setProperty("HADOOP_USER_NAME","jinzhao");
         String localsrc = "G:\\test\\log1.txt";
-        String dst = "hdfs://192.168.10.156:9000/test/input/log1.txt";
+        String dst = "hdfs://192.168.10.163:9000/test/input/log2.txt";
         InputStream in = new BufferedInputStream(new FileInputStream(localsrc));
 
         Configuration conf = new Configuration();

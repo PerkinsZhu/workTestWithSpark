@@ -20,7 +20,9 @@ object SparkTC {
       val to = rand.nextInt(numVertices)
       if (from != to) edges.+=((from, to))
     }
-    edges.toSeq
+    val temp = edges.toSeq
+    temp.foreach(println _)
+    temp
   }
 
   def main(args: Array[String]) {
@@ -49,6 +51,7 @@ object SparkTC {
       // then project the result to obtain the new (x, z) paths.
       tc = tc.union(tc.join(edges).map(x => (x._2._2, x._2._1))).distinct().cache()
       nextCount = tc.count()
+      println(oldCount+"--"+nextCount)
     } while (nextCount != oldCount)
 
     println(s"TC has ${tc.count()} edges.")

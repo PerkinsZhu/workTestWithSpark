@@ -90,9 +90,9 @@ public class WordCount {
         conf.setOutputFormat(TextOutputFormat.class);
         conf.setPartitionerClass(MyPartitioner.class);
         conf.setNumReduceTasks(2);
-        FileInputFormat.setInputPaths(conf, new Path("hdfs://192.168.10.156:9000/test/input/log1.txt"));
+        FileInputFormat.setInputPaths(conf, new Path("hdfs://192.168.10.163:9000/test/input/log1.txt"));
         //        FileOutputFormat.setOutputPath(conf, new Path("hdfs://master:9000/thesis/output8"));
-        FileOutputFormat.setOutputPath(conf, new Path("hdfs://192.168.10.156:9000/test/out"));
+        FileOutputFormat.setOutputPath(conf, new Path("hdfs://192.168.10.163:9000/test/out"));
         //FileOutputFormat.setOutputPath(conf, new Path(args[0]));
 
         JobClient.runJob(conf);
