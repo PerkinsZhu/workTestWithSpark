@@ -83,6 +83,8 @@ libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.0"
 // https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10
 libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % "2.3.1"
 
+// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+libraryDependencies += "org.apache.logging.log4j" % "log4j-api" % "2.11.1"
 
 /*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
