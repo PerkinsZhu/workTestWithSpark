@@ -25,6 +25,7 @@ public class HiveJdbcTest {
             Class.forName(driverName);
             //注意这里的账号和密码，不是数据库mysql的账号和密码。而是hive所有linux服务器的账号和密码
             Connection con = DriverManager.getConnection("jdbc:hive2://servera.local.com:10000/sbux", "jinzhao", "jinzhao");
+            //            Connection con = DriverManager.getConnection("jdbc:hive2://servera.local.com:10000/sbux", "", "");
             stmt = con.createStatement();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -38,6 +39,7 @@ public class HiveJdbcTest {
     @Test
     public void testShowDBs() {
         try {
+            //            stmt.execute("use sbux");
             ResultSet result = stmt.executeQuery("select * from student");
             showResult(result);
         } catch (SQLException e) {
@@ -46,11 +48,24 @@ public class HiveJdbcTest {
     }
 
     public void showResult(ResultSet resultSet) throws SQLException {
-        int row = resultSet.getRow();
+       /* int row = resultSet.getRow();
         System.out.println(row);
         while (row > 0) {
             System.out.println(resultSet.getString(1));
             row--;
+        }*/
+        int columns = resultSet.getMetaData().getColumnCount();
+
+        while (resultSet.next()) {
+
+            for (int i = 1; i <= columns; i++) {
+
+                System.out.print(resultSet.getString(i));
+
+                System.out.print("\t\t");
+
+            }
+            System.out.print("\r\n");
         }
     }
 
@@ -68,7 +83,7 @@ public class HiveJdbcTest {
     public static void main(String[] args) {
         HiveJdbcTest test = new HiveJdbcTest();
         test.createStatement();
-        //test.createTable("javaTable");
+        //        test.createTable("javaTable");
         test.testShowDBs();
     }
 }
