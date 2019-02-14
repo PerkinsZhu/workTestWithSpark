@@ -86,6 +86,8 @@ libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % "2.3.1"
 // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
 libraryDependencies += "org.apache.logging.log4j" % "log4j-api" % "2.11.1"
 
+libraryDependencies += "io.dgraph" % "dgraph4j" % "1.7.1"
+
 /*assemblyMergeStrategy in run := {
   case PathList("com.fasterxml", "jackson.databind", xs @ _*)         => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
@@ -95,3 +97,16 @@ libraryDependencies += "org.apache.logging.log4j" % "log4j-api" % "2.11.1"
     val oldStrategy = (assemblyMergeStrategy in run).value
     oldStrategy(x)
 }*/
+
+// https://mvnrepository.com/artifact/com.google.guava/guava
+libraryDependencies += "com.google.guava" % "guava" % "27.0.1-jre"
+
+// https://mvnrepository.com/artifact/io.grpc/grpc-stub
+libraryDependencies += "io.grpc" % "grpc-stub" % "1.18.0"
+// https://mvnrepository.com/artifact/io.grpc/grpc-core
+libraryDependencies += "io.grpc" % "grpc-core" % "1.18.0"
+// https://mvnrepository.com/artifact/io.grpc/grpc-netty
+libraryDependencies += "io.grpc" % "grpc-netty" % "1.18.0"
+// https://mvnrepository.com/artifact/io.grpc/grpc-protobuf
+libraryDependencies += "io.grpc" % "grpc-protobuf" % "1.18.0"
+
