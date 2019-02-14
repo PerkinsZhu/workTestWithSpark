@@ -55,15 +55,10 @@ public class HiveJdbcTest {
             row--;
         }*/
         int columns = resultSet.getMetaData().getColumnCount();
-
         while (resultSet.next()) {
-
             for (int i = 1; i <= columns; i++) {
-
                 System.out.print(resultSet.getString(i));
-
                 System.out.print("\t\t");
-
             }
             System.out.print("\r\n");
         }

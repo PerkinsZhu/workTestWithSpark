@@ -21,14 +21,19 @@ object LocalTest {
     //这些配置就相当于在程序中执行submit操作,运行时可以直接通过java -jar来运行
     val conf = new SparkConf()
       .setAppName("sparkTest")
-      .setMaster(master)
-      .set("spark.executor.memory", "900m")
+//      .setMaster(master)
+      .setMaster("local")
+      .set("spark.executor.memory", "1000m")
+//      .set("spark.driver.memory", "512m")
+//      .set("spark.cores.max", "2")
       .setJars(List("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar\\workTestWithSpark.jar"))
     //      .setJars(new File("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar").listFiles().map(_.getAbsolutePath))
 
     val sc = new SparkContext(conf)
     val textFile = sc.textFile(remote_file)
-    textFile.map(_.split(" ")).take(1000)
+//    textFile.map(_.split(" ")).take(1000)
+    println("======count --->>"+textFile.count())
+//    textFile.map(_.split(" ")).foreach(println(_))
     println("task is over")
   }
 
@@ -147,4 +152,8 @@ object LocalTest {
   }
 
 
+  def testHive(): Unit = {
+    val (sparkSession, sc) = createSparkSession()
+
+  }
 }

@@ -29,7 +29,7 @@ libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.7"
 fork in Test := true
 
 // https://mvnrepository.com/artifact/log4j/log4j
-libraryDependencies += "log4j" % "log4j" % "1.2.17"
+//libraryDependencies += "log4j" % "log4j" % "1.2.17"
 
 // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
 libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "3.1.1"

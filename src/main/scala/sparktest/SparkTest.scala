@@ -7,11 +7,12 @@ import sparktest.kafka.StreamingWithKafka
   **/
 object SparkTest {
   def main(args: Array[String]): Unit = {
-    LocalTest.testSpark()
-//    SubmitTest.testMongod()
-//    LocalTest.testDataFrame()
-//    StreamingWithKafka.testKafkaStreaming()
-//    StreamingWithKafka.readAndWriteWithKafka()
-//    SubmitTest.testSpark()
+    //    LocalTest.testSpark()
+    //    SubmitTest.testMongod()
+    //    LocalTest.testDataFrame()
+    //    StreamingWithKafka.testKafkaStreaming()
+    //    StreamingWithKafka.readAndWriteWithKafka()
+    //    SubmitTest.testSpark()
+    LocalTest.testHive()
   }
 }
