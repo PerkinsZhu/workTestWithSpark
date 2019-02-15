@@ -1,5 +1,7 @@
 package sparktest
 
+import java.io.File
+
 import com.mongodb.spark.MongoSpark
 import org.apache.log4j.Logger
 import org.apache.spark.sql.{Row, SparkSession}
@@ -21,19 +23,19 @@ object LocalTest {
     //这些配置就相当于在程序中执行submit操作,运行时可以直接通过java -jar来运行
     val conf = new SparkConf()
       .setAppName("sparkTest")
-//      .setMaster(master)
+      //      .setMaster(master)
       .setMaster("local")
       .set("spark.executor.memory", "1000m")
-//      .set("spark.driver.memory", "512m")
-//      .set("spark.cores.max", "2")
+      //      .set("spark.driver.memory", "512m")
+      //      .set("spark.cores.max", "2")
       .setJars(List("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar\\workTestWithSpark.jar"))
     //      .setJars(new File("F:\\myCode\\workTestWithSpark\\classes\\artifacts\\workTestWithSpark_jar").listFiles().map(_.getAbsolutePath))
 
     val sc = new SparkContext(conf)
     val textFile = sc.textFile(remote_file)
-//    textFile.map(_.split(" ")).take(1000)
-    println("======count --->>"+textFile.count())
-//    textFile.map(_.split(" ")).foreach(println(_))
+    //    textFile.map(_.split(" ")).take(1000)
+    println("======count --->>" + textFile.count())
+    //    textFile.map(_.split(" ")).foreach(println(_))
     println("task is over")
   }
 
@@ -148,12 +150,34 @@ object LocalTest {
   def testStreaming(): Unit = {
     import org.apache.spark.streaming._
     val (sparkSession, sc) = createSparkSession()
-    val sparkStream = new StreamingContext(sc,Seconds(1))
+    val sparkStream = new StreamingContext(sc, Seconds(1))
   }
 
+  def baseTest(): Unit = {
+    val (spark, sc) = createSparkSession()
+    val df = spark.read.json("G:\\test\\spark\\person.json")
+    df.show()
+  }
 
   def testHive(): Unit = {
-    val (sparkSession, sc) = createSparkSession()
 
+    val warehouseLocation = new File("hdfs://192.168.10.163:9000/user/hive/warehouse").getAbsolutePath
+
+    val spark = SparkSession
+      .builder()
+      .master("local")
+      .appName("Spark Hive Example")
+      .config("spark.sql.warehouse.dir", warehouseLocation)
+      .enableHiveSupport()
+      .getOrCreate()
+
+    import spark.implicits._
+    import spark.sql
+
+    sql("CREATE TABLE IF NOT EXISTS src (key INT, value STRING) USING hive")
+    sql("LOAD DATA LOCAL INPATH 'G:\\test\\spark\\kv1.txt' INTO TABLE src")
+
+    // Queries are expressed in HiveQL
+    sql("SELECT * FROM src").show()
   }
 }
