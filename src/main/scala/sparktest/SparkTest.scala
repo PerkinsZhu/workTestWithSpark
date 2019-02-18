@@ -12,8 +12,8 @@ object SparkTest {
     //    LocalTest.testDataFrame()
     //    StreamingWithKafka.testKafkaStreaming()
     //    StreamingWithKafka.readAndWriteWithKafka()
-    //    SubmitTest.testSpark()
-    //    LocalTest.baseTest()
+//        SubmitTest.testSpark()
+//        LocalTest.baseTest()
     LocalTest.testHive()
     //    LocalTest.testDataFrame()
   }

@@ -54,9 +54,9 @@ libraryDependencies += "org.apache.zookeeper" % "zookeeper" % "3.4.13"
 
 libraryDependencies += "com.alibaba" % "dubbo" % "2.6.2"
 
-libraryDependencies += "org.apache.hive" % "hive-exec" % "3.1.1"
-libraryDependencies += "org.apache.hive" % "hive-metastore" % "3.1.1"
-libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.1"
+libraryDependencies += "org.apache.hive" % "hive-exec" % "3.1.0"
+libraryDependencies += "org.apache.hive" % "hive-metastore" % "3.1.0"
+libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.0"
 
 
 libraryDependencies += "org.apache.logging.log4j" % "log4j-api" % "2.11.1"
@@ -80,7 +80,7 @@ libraryDependencies += "io.grpc" % "grpc-core" % "1.18.0"
 libraryDependencies += "io.grpc" % "grpc-netty" % "1.18.0"
 libraryDependencies += "io.grpc" % "grpc-protobuf" % "1.18.0"
 
-libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.8.1"
+libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.5"
 
 
 
