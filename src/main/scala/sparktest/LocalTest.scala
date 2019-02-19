@@ -161,13 +161,13 @@ object LocalTest {
 
   def testHive(): Unit = {
 
-    val warehouseLocation = new File("hdfs://192.168.10.163:9000/user/hive/warehouse").getAbsolutePath
+    val warehouseLocation = new File("hdfs://192.168.10.156:9000/user/hive/warehouse").getAbsolutePath
 
     val spark = SparkSession
       .builder()
       .master("local")
       .appName("Spark Hive Example")
-      .config("spark.sql.warehouse.dir", warehouseLocation)
+//      .config("spark.sql.warehouse.dir", warehouseLocation)
       .enableHiveSupport()
       .getOrCreate()
 

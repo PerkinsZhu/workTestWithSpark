@@ -29,10 +29,10 @@ fork in Test := true
 // https://mvnrepository.com/artifact/log4j/log4j
 //libraryDependencies += "log4j" % "log4j" % "1.2.17"
 
-libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "3.1.1"
-libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "3.1.1"
-libraryDependencies += "org.apache.hadoop" % "hadoop-hdfs" % "3.1.1"
-libraryDependencies += "org.apache.hadoop" % "hadoop-mapreduce-client-core" % "3.1.1"
+libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "2.6.0"
+libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.6.0"
+libraryDependencies += "org.apache.hadoop" % "hadoop-hdfs" % "2.6.0"
+libraryDependencies += "org.apache.hadoop" % "hadoop-mapreduce-client-core" % "2.6.0"
 
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.9.6"
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.6"
@@ -54,9 +54,9 @@ libraryDependencies += "org.apache.zookeeper" % "zookeeper" % "3.4.13"
 
 libraryDependencies += "com.alibaba" % "dubbo" % "2.6.2"
 
-libraryDependencies += "org.apache.hive" % "hive-exec" % "3.1.0"
-libraryDependencies += "org.apache.hive" % "hive-metastore" % "3.1.0"
-libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.0"
+libraryDependencies += "org.apache.hive" % "hive-exec" % "1.1.0"
+libraryDependencies += "org.apache.hive" % "hive-metastore" % "1.1.0"
+libraryDependencies += "org.apache.hive" % "hive-jdbc" % "1.1.0"
 
 
 libraryDependencies += "org.apache.logging.log4j" % "log4j-api" % "2.11.1"

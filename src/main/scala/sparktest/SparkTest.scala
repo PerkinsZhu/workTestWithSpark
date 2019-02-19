@@ -12,9 +12,10 @@ object SparkTest {
     //    LocalTest.testDataFrame()
     //    StreamingWithKafka.testKafkaStreaming()
     //    StreamingWithKafka.readAndWriteWithKafka()
-//        SubmitTest.testSpark()
-//        LocalTest.baseTest()
-    LocalTest.testHive()
+            SubmitTest.testSpark()
+    //        SubmitTest.testNetWorkWordCount()
+    //        LocalTest.baseTest()
+    //    LocalTest.testHive()
     //    LocalTest.testDataFrame()
   }
 }
