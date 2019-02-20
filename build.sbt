@@ -83,4 +83,6 @@ libraryDependencies += "io.grpc" % "grpc-protobuf" % "1.18.0"
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.5"
 
 
+// https://mvnrepository.com/artifact/com.alibaba/druid
+libraryDependencies += "com.alibaba" % "druid" % "1.1.13"
 
