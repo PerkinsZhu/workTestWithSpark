@@ -4,25 +4,44 @@ package sparktest
   * Created by PerkinsZhu on 2018/8/18 15:01
   **/
 
+import java.io.File
+
 import com.mongodb.spark.MongoSpark
 import org.apache.log4j.Logger
 import org.apache.spark.sql.types.StructType
-import org.apache.spark.sql.{Dataset, SparkSession}
+import org.apache.spark.sql.{Dataset, Row, SaveMode, SparkSession}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
+import sparktest.sparksql.HiveTest.Record
 
 object SubmitTest {
-  private val master = "spark://192.168.10.156:7337"
-  private val remote_file = "hdfs://192.168.10.156:9000/test/input/employee.txt"
+
+
+  /*  private val master = "spark://192.168.10.156:7077"
+    private val remote_file = "hdfs://192.168.10.156:8020/test/input/employee.txt"*/
+  private val master = "spark://192.168.10.163:7077"
+  private val remote_file = "hdfs://192.168.10.163:9000/test/input/test.txt"
+  val hdfs_input ="hdfs://192.168.10.163:9000/test/input/"
   val mongodbUri = "mongodb://192.168.10.192:27017/test.common-qa"
   val logger = Logger.getLogger(SubmitTest.getClass)
+/*
   val sparkSession = SparkSession.builder()
-//    .config("spark.mongodb.input.uri", mongodbUri)
+    //    .config("spark.mongodb.input.uri", mongodbUri)
     .master(master)
     .appName("sparkTest").getOrCreate()
   val sparkContext = sparkSession.sparkContext;
+*/
+//val warehouseLocation = new File("/home/jinzhao/app/task/sparkWarehouse").getAbsolutePath
+val warehouseLocation = "/user/hive/warehouse/"   // 这里有应该不用添加hadoop路径就好，直接写根目录路径
+  val sparkSession = SparkSession
+    .builder()
+    .appName("Spark Hive Example")
+    .config("spark.sql.warehouse.dir", warehouseLocation)
+    .enableHiveSupport()
+    .getOrCreate()
+  val sparkContext = sparkSession.sparkContext;
 
   import sparkSession.implicits._
-
+  import sparkSession.sql
   def testSpark(): Unit = {
     val textFile = sparkContext.textFile(remote_file)
     textFile.map(_.split(" ")).take(1000).foreach(item => {
@@ -101,6 +120,70 @@ object SubmitTest {
     val rdd = MongoSpark.load(sparkContext)
     println(rdd.count)
     println(rdd.first.toJson)
+
+  }
+
+  def testSQL(): Unit = {
+    val df = sparkSession.read.json(hdfs_input+"people.json")
+    df.show()
+  }
+
+
+  def testHive(): Unit = {
+    sql("CREATE TABLE IF NOT EXISTS src (key INT, value STRING) USING hive")
+    sql(s"LOAD DATA LOCAL INPATH '/home/jinzhao/app/task/resources' INTO TABLE src")
+
+    // Queries are expressed in HiveQL
+    sql("SELECT * FROM src").show()
+    sql("SELECT COUNT(*) FROM src").show()
+    val sqlDF = sql("SELECT key, value FROM src WHERE key < 10 ORDER BY key")
+
+    // The items in DataFrames are of type Row, which allows you to access each column by ordinal.
+    val stringsDS = sqlDF.map {
+      case Row(key: Int, value: String) => s"Key: $key, Value: $value"
+    }
+    stringsDS.show()
+
+
+    // You can also use DataFrames to create temporary views within a SparkSession.
+    val recordsDF = sparkSession.createDataFrame((1 to 100).map(i => Record(i, s"val_$i")))
+    recordsDF.createOrReplaceTempView("records")
+
+    // Queries can then join DataFrame data with data stored in Hive.
+    sql("SELECT * FROM records r JOIN src s ON r.key = s.key").show()
+    sql("CREATE TABLE hive_records(key int, value string) STORED AS PARQUET")
+    // Save DataFrame to the Hive managed table
+    val df = sparkSession.table("src")
+    df.write.mode(SaveMode.Overwrite).saveAsTable("hive_records")
+    // After insertion, the Hive managed table has data now
+    sql("SELECT * FROM hive_records").show()
+
+    // 这里的路径是基于hadoop的路径
+    val dataDir = "/tmp/parquet_data"
+    sparkSession.range(10).write.parquet(dataDir)
+    // Create a Hive external Parquet table
+    sql(s"CREATE EXTERNAL TABLE hive_ints(key int) STORED AS PARQUET LOCATION '$dataDir'")
+    // The Hive external table should already have data
+    sql("SELECT * FROM hive_ints").show()
+    // +---+
+    // |key|
+    // +---+
+    // |  0|
+    // |  1|
+    // |  2|
+    // ...
+
+    // Turn on flag for Hive Dynamic Partitioning
+    sparkSession.sqlContext.setConf("hive.exec.dynamic.partition", "true")
+    sparkSession.sqlContext.setConf("hive.exec.dynamic.partition.mode", "nonstrict")
+    // Create a Hive partitioned table using DataFrame API
+    df.write.partitionBy("key").format("hive").saveAsTable("hive_part_tbl")
+    // Partitioned column `key` will be moved to the end of the schema.
+    sql("SELECT * FROM hive_part_tbl").show()
+
+
+    sparkSession.stop()
+
 
   }
 

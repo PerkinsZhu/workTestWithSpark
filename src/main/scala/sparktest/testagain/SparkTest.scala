@@ -11,8 +11,9 @@ object SparkTest {
   }
 
   private def test01() = {
+     val master = "spark://192.168.10.163:7077"
     val logFile = "G:\\test\\spark\\people.txt" // Should be some file on your system
-    val spark = SparkSession.builder.appName("Simple Application").master("local").getOrCreate()
+    val spark = SparkSession.builder.appName("Simple Application").master(master).getOrCreate()
     val logData = spark.read.textFile(logFile).cache()
     val numAs = logData.filter(line => line.contains("a")).count()
     val numBs = logData.filter(line => line.contains("b")).count()
