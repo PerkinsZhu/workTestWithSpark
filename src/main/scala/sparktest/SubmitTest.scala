@@ -173,7 +173,7 @@ val warehouseLocation = "/user/hive/warehouse/"   // 这里有应该不用添加
     // |  2|
     // ...
 
-    // Turn on flag for Hive Dynamic Partitioning
+    // Turn on flag for Hive Dynamic Partitioning·
     sparkSession.sqlContext.setConf("hive.exec.dynamic.partition", "true")
     sparkSession.sqlContext.setConf("hive.exec.dynamic.partition.mode", "nonstrict")
     // Create a Hive partitioned table using DataFrame API

@@ -1,6 +1,7 @@
 package sparktest
 
 import sparktest.kafka.StreamingWithKafka
+import sparktest.sparksql.SparkSQLTest
 
 /**
   * Created by PerkinsZhu on 2018/8/22 10:21
@@ -18,6 +19,10 @@ object SparkTest {
     //        LocalTest.testHive()
     //    LocalTest.testDataFrame()
 
-    SubmitTest.testHive()
+    //    SubmitTest.testHive()
+//    SparkSQLTest.testBase()
+//    SparkSQLTest.testUDAF()
+//    SparkSQLTest.testRDD()
+    SparkSQLTest.testAggregation()
   }
 }
