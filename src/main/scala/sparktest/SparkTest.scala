@@ -19,10 +19,11 @@ object SparkTest {
     //        LocalTest.testHive()
     //    LocalTest.testDataFrame()
 
-    //    SubmitTest.testHive()
-//    SparkSQLTest.testBase()
-//    SparkSQLTest.testUDAF()
-//    SparkSQLTest.testRDD()
-    SparkSQLTest.testAggregation()
+    //        SubmitTest.testHive()
+    //    SparkSQLTest.testBase()
+    //    SparkSQLTest.testUDAF()
+    //    SparkSQLTest.testRDD()
+    //    SparkSQLTest.testAggregation()
+    SubmitTest.testClusterHive()
   }
 }

@@ -20,18 +20,18 @@ object SubmitTest {
     private val remote_file = "hdfs://192.168.10.156:8020/test/input/employee.txt"*/
   private val master = "spark://192.168.10.163:7077"
   private val remote_file = "hdfs://192.168.10.163:9000/test/input/test.txt"
-  val hdfs_input ="hdfs://192.168.10.163:9000/test/input/"
+  val hdfs_input = "hdfs://192.168.10.163:9000/test/input/"
   val mongodbUri = "mongodb://192.168.10.192:27017/test.common-qa"
   val logger = Logger.getLogger(SubmitTest.getClass)
-/*
-  val sparkSession = SparkSession.builder()
-    //    .config("spark.mongodb.input.uri", mongodbUri)
-    .master(master)
-    .appName("sparkTest").getOrCreate()
-  val sparkContext = sparkSession.sparkContext;
-*/
-//val warehouseLocation = new File("/home/jinzhao/app/task/sparkWarehouse").getAbsolutePath
-val warehouseLocation = "/user/hive/warehouse/"   // 这里有应该不用添加hadoop路径就好，直接写根目录路径
+  /*
+    val sparkSession = SparkSession.builder()
+      //    .config("spark.mongodb.input.uri", mongodbUri)
+      .master(master)
+      .appName("sparkTest").getOrCreate()
+    val sparkContext = sparkSession.sparkContext;
+  */
+  //val warehouseLocation = new File("/home/jinzhao/app/task/sparkWarehouse").getAbsolutePath
+  val warehouseLocation = "/user/hive/warehouse/" // 这里有应该不用添加hadoop路径就好，直接写根目录路径
   val sparkSession = SparkSession
     .builder()
     .appName("Spark Hive Example")
@@ -42,6 +42,7 @@ val warehouseLocation = "/user/hive/warehouse/"   // 这里有应该不用添加
 
   import sparkSession.implicits._
   import sparkSession.sql
+
   def testSpark(): Unit = {
     val textFile = sparkContext.textFile(remote_file)
     textFile.map(_.split(" ")).take(1000).foreach(item => {
@@ -124,7 +125,7 @@ val warehouseLocation = "/user/hive/warehouse/"   // 这里有应该不用添加
   }
 
   def testSQL(): Unit = {
-    val df = sparkSession.read.json(hdfs_input+"people.json")
+    val df = sparkSession.read.json(hdfs_input + "people.json")
     df.show()
   }
 
@@ -184,6 +185,23 @@ val warehouseLocation = "/user/hive/warehouse/"   // 这里有应该不用添加
 
     sparkSession.stop()
 
+
+  }
+
+
+  def testClusterHive(): Unit = {
+    sql("use sbux")
+    // sql("SELECT * FROM company").show()
+    val df01 = sql("select * from employee e join company c on (c.boss = e.eud)")
+    df01.filter($"salary" > "40000").show()
+    val temp = df01.select("e.eud", "e.name", "e.salary")
+    /*  temp.toJSON.collect().foreach(println(_))
+      temp.toDF().collect().foreach(println(_))
+      import scala.collection.JavaConversions._
+      temp.toJavaRDD.collect().foreach(println(_))*/
+    temp.collect.foreach(item => println(item(0) + "--" + item(1) + "--" + item(2)))
+    // 这里就不用再加前缀 e. 了
+    temp.collect.foreach(item => println(item.getAs[Int]("eud") + "--" + item.getAs[String]("name") + "--" + item.getAs[String]("salary")))
 
   }
 
